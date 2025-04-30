@@ -406,5 +406,8 @@ JSON
         self::$kernel = $mock;
 
         self::createClient();
+
+        // cleanup
+        self::ensureKernelShutdown();
     }
 }
