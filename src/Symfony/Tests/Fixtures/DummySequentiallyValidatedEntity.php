@@ -11,15 +11,18 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Fixtures;
+namespace ApiPlatform\Symfony\Tests\Fixtures;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class DummyValidatedHostnameEntity
+class DummySequentiallyValidatedEntity
 {
     /**
      * @var string
      */
-    #[Assert\Hostname]
-    public $dummyHostname;
+    #[Assert\Sequentially([
+        new Assert\Length(min: 1, max: 32),
+        new Assert\Regex(pattern: '/^[a-z]$/'),
+    ])]
+    public $dummy;
 }

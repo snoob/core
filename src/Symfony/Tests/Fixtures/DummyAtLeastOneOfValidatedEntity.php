@@ -11,15 +11,18 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Fixtures;
+namespace ApiPlatform\Symfony\Tests\Fixtures;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class DummyValidatedUlidEntity
+class DummyAtLeastOneOfValidatedEntity
 {
     /**
      * @var string
      */
-    #[Assert\Ulid]
-    public $dummyUlid;
+    #[Assert\AtLeastOneOf([
+        new Assert\Regex('/#/'),
+        new Assert\Length(min: 10),
+    ])]
+    public $dummy;
 }

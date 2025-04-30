@@ -11,15 +11,27 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Fixtures;
+namespace ApiPlatform\Symfony\Tests\Fixtures;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-class DummyUniqueValidatedEntity
+class DummyCountValidatedEntity
 {
     /**
-     * @var string[]
+     * @var array
      */
-    #[Assert\Unique]
-    public $dummyItems;
+    #[Assert\Count(min: 1)]
+    public $dummyMin;
+
+    /**
+     * @var array
+     */
+    #[Assert\Count(max: 10)]
+    public $dummyMax;
+
+    /**
+     * @var array
+     */
+    #[Assert\Count(min: 1, max: 10)]
+    public $dummyMinMax;
 }

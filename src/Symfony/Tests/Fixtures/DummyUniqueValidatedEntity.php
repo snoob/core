@@ -11,15 +11,15 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Fixtures;
+namespace ApiPlatform\Symfony\Tests\Fixtures;
 
-use ApiPlatform\Tests\Fixtures\TestBundle\Validator\Constraint\DummyCompoundRequirements;
+use Symfony\Component\Validator\Constraints as Assert;
 
-class DummyCompoundValidatedEntity
+class DummyUniqueValidatedEntity
 {
     /**
-     * @var string
+     * @var string[]
      */
-    #[DummyCompoundRequirements]
-    public $dummy;
+    #[Assert\Unique]
+    public $dummyItems;
 }

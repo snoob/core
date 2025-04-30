@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Symfony\Validator\Metadata\Property;
+namespace ApiPlatform\Symfony\Tests\Validator\Metadata\Property;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\Property\Factory\PropertyMetadataFactoryInterface;
@@ -29,19 +29,19 @@ use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaRa
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaRegexRestriction;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaUniqueRestriction;
 use ApiPlatform\Symfony\Validator\Metadata\Property\ValidatorPropertyMetadataFactory;
-use ApiPlatform\Tests\Fixtures\DummyAtLeastOneOfValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyCollectionValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyCompoundValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyCountValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyIriWithValidationEntity;
-use ApiPlatform\Tests\Fixtures\DummyNumericValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyRangeValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummySequentiallyValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyUniqueValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyValidatedChoiceEntity;
-use ApiPlatform\Tests\Fixtures\DummyValidatedEntity;
-use ApiPlatform\Tests\Fixtures\DummyValidatedHostnameEntity;
-use ApiPlatform\Tests\Fixtures\DummyValidatedUlidEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyAtLeastOneOfValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyCollectionValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyCompoundValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyCountValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyIriWithValidationEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyNumericValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyRangeValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummySequentiallyValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyUniqueValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyValidatedChoiceEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyValidatedEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyValidatedHostnameEntity;
+use ApiPlatform\Symfony\Tests\Fixtures\DummyValidatedUlidEntity;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\PropertyInfo\Type;

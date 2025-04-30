@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Fixtures\TestBundle\Validator\Constraint;
+namespace ApiPlatform\Symfony\Tests\Fixtures\TestBundle\Validator\Constraint;
 
 use Symfony\Component\Validator\Constraints\Compound;
 use Symfony\Component\Validator\Constraints\Length;

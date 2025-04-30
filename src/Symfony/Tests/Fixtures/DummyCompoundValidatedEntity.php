@@ -11,18 +11,15 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Fixtures;
+namespace ApiPlatform\Symfony\Tests\Fixtures;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Symfony\Tests\Fixtures\TestBundle\Validator\Constraint\DummyCompoundRequirements;
 
-class DummyAtLeastOneOfValidatedEntity
+class DummyCompoundValidatedEntity
 {
     /**
      * @var string
      */
-    #[Assert\AtLeastOneOf([
-        new Assert\Regex('/#/'),
-        new Assert\Length(min: 10),
-    ])]
+    #[DummyCompoundRequirements]
     public $dummy;
 }
