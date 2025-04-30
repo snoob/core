@@ -17,9 +17,12 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaLengthRestriction;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaOneOfRestriction;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaRegexRestriction;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
-use Symfony\Component\PropertyInfo\Type;
+use Symfony\Component\PropertyInfo\Type as LegacyType;
+use Symfony\Component\TypeInfo\Type;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\AtLeastOneOf;
 use Symfony\Component\Validator\Constraints\Length;
@@ -42,8 +45,15 @@ final class PropertySchemaOneOfRestrictionTest extends TestCase
         ]);
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('supportsProvider')]
+    #[DataProvider('supportsProvider')]
+    #[IgnoreDeprecations]
     public function testSupports(Constraint $constraint, ApiProperty $propertyMetadata, bool $expectedResult): void
+    {
+        self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->supports($constraint, $propertyMetadata));
+    }
+
+    #[DataProvider('supportsProviderWithNativeType')]
+    public function testSupportsWithNativeType(Constraint $constraint, ApiProperty $propertyMetadata, bool $expectedResult): void
     {
         self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->supports($constraint, $propertyMetadata));
     }
@@ -58,8 +68,25 @@ final class PropertySchemaOneOfRestrictionTest extends TestCase
         yield 'not supported' => [new Positive(), new ApiProperty(), false];
     }
 
-    #[\PHPUnit\Framework\Attributes\DataProvider('createProvider')]
+    public static function supportsProviderWithNativeType(): \Generator
+    {
+        if (!class_exists(AtLeastOneOf::class)) {
+            return;
+        }
+
+        yield 'native type: supported' => [new AtLeastOneOf(['constraints' => []]), (new ApiProperty())->withNativeType(Type::mixed()), true];
+        yield 'native type: not supported' => [new Positive(), (new ApiProperty())->withNativeType(Type::mixed()), false];
+    }
+
+    #[DataProvider('createProvider')]
+    #[IgnoreDeprecations]
     public function testCreate(Constraint $constraint, ApiProperty $propertyMetadata, array $expectedResult): void
+    {
+        self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->create($constraint, $propertyMetadata));
+    }
+
+    #[DataProvider('createProviderWithNativeType')]
+    public function testCreateWithNativeType(Constraint $constraint, ApiProperty $propertyMetadata, array $expectedResult): void
     {
         self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->create($constraint, $propertyMetadata));
     }
@@ -67,10 +94,17 @@ final class PropertySchemaOneOfRestrictionTest extends TestCase
     public static function createProvider(): \Generator
     {
         yield 'empty' => [new AtLeastOneOf(['constraints' => []]), new ApiProperty(), []];
-
         yield 'not supported constraints' => [new AtLeastOneOf(['constraints' => [new Positive(), new Length(['min' => 3])]]), new ApiProperty(), []];
+        yield 'one supported constraint' => [new AtLeastOneOf(['constraints' => [new Positive(), new Length(['min' => 3])]]), (new ApiProperty())->withBuiltinTypes([new LegacyType(LegacyType::BUILTIN_TYPE_STRING)]), [
+            'oneOf' => [['minLength' => 3]],
+        ]];
+    }
 
-        yield 'one supported constraint' => [new AtLeastOneOf(['constraints' => [new Positive(), new Length(['min' => 3])]]), (new ApiProperty())->withBuiltinTypes([new Type(Type::BUILTIN_TYPE_STRING)]), [
+    public static function createProviderWithNativeType(): \Generator
+    {
+        yield 'native type: empty' => [new AtLeastOneOf(['constraints' => []]), new ApiProperty(), []];
+        yield 'native type: not supported constraints' => [new AtLeastOneOf(['constraints' => [new Positive(), new Length(['min' => 3])]]), new ApiProperty(), []];
+        yield 'native type: one supported constraint' => [new AtLeastOneOf(['constraints' => [new Positive(), new Length(['min' => 3])]]), (new ApiProperty())->withNativeType(Type::string()), [
             'oneOf' => [['minLength' => 3]],
         ]];
     }
