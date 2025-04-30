@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Symfony\Validator\Metadata\Property\Restriction;
+namespace ApiPlatform\Symfony\Tests\Validator\Metadata\Property\Restriction;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaUniqueRestriction;

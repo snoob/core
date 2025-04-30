@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Symfony\Validator\Metadata\Property\Restriction;
+namespace ApiPlatform\Symfony\Tests\Validator\Metadata\Property\Restriction;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaLengthRestriction;
@@ -45,11 +45,12 @@ final class PropertySchemaOneOfRestrictionTest extends TestCase
         ]);
     }
 
-    #[DataProvider('supportsProvider')]
     #[IgnoreDeprecations]
-    public function testSupports(Constraint $constraint, ApiProperty $propertyMetadata, bool $expectedResult): void
+    public function testSupports(): void
     {
-        self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->supports($constraint, $propertyMetadata));
+        foreach ($this->supportsProvider() as [$constraint, $propertyMetadata, $expectedResult]) {
+            self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->supports($constraint, $propertyMetadata));
+        }
     }
 
     #[DataProvider('supportsProviderWithNativeType')]
@@ -78,11 +79,12 @@ final class PropertySchemaOneOfRestrictionTest extends TestCase
         yield 'native type: not supported' => [new Positive(), (new ApiProperty())->withNativeType(Type::mixed()), false];
     }
 
-    #[DataProvider('createProvider')]
     #[IgnoreDeprecations]
-    public function testCreate(Constraint $constraint, ApiProperty $propertyMetadata, array $expectedResult): void
+    public function testCreate(): void
     {
-        self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->create($constraint, $propertyMetadata));
+        foreach ($this->createProvider() as [$constraint, $propertyMetadata, $expectedResult]) {
+            self::assertSame($expectedResult, $this->propertySchemaOneOfRestriction->create($constraint, $propertyMetadata));
+        }
     }
 
     #[DataProvider('createProviderWithNativeType')]

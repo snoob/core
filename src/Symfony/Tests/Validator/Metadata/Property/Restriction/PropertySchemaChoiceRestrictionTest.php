@@ -15,6 +15,7 @@ namespace ApiPlatform\Symfony\Tests\Validator\Metadata\Property\Restriction;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaChoiceRestriction;
+use PHPUnit\Framework\Attributes\IgnoreDeprecations;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\PropertyInfo\Type as LegacyType;
@@ -37,7 +38,7 @@ final class PropertySchemaChoiceRestrictionTest extends TestCase
         $this->propertySchemaChoiceRestriction = new PropertySchemaChoiceRestriction();
     }
 
-    #[\PHPUnit\Framework\Attributes\IgnoreDeprecations]
+    #[IgnoreDeprecations]
     public function testSupports(): void
     {
         foreach ($this->supportsProvider() as [$constraint, $propertyMetadata, $expectedResult]) {

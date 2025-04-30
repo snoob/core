@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Symfony\Validator\Metadata\Property\Restriction;
+namespace ApiPlatform\Symfony\Tests\Validator\Metadata\Property\Restriction;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaRangeRestriction;
@@ -39,11 +39,12 @@ final class PropertySchemaRangeRestrictionTest extends TestCase
         $this->propertySchemaRangeRestriction = new PropertySchemaRangeRestriction();
     }
 
-    #[DataProvider('supportsProvider')]
     #[IgnoreDeprecations]
-    public function testSupports(Constraint $constraint, ApiProperty $propertyMetadata, bool $expectedResult): void
+    public function testSupports(): void
     {
-        self::assertSame($expectedResult, $this->propertySchemaRangeRestriction->supports($constraint, $propertyMetadata));
+        foreach ($this->supportsProvider() as [$constraint, $propertyMetadata, $expectedResult]) {
+            self::assertSame($expectedResult, $this->propertySchemaRangeRestriction->supports($constraint, $propertyMetadata));
+        }
     }
 
     #[DataProvider('supportsProviderWithNativeType')]
@@ -72,11 +73,12 @@ final class PropertySchemaRangeRestrictionTest extends TestCase
         yield 'native type: not supported type' => [new Range(['min' => 1]), (new ApiProperty())->withNativeType(Type::string()), false];
     }
 
-    #[DataProvider('createProvider')]
     #[IgnoreDeprecations]
-    public function testCreate(Constraint $constraint, ApiProperty $propertyMetadata, array $expectedResult): void
+    public function testCreate(): void
     {
-        self::assertSame($expectedResult, $this->propertySchemaRangeRestriction->create($constraint, $propertyMetadata));
+        foreach ($this->createProvider() as [$constraint, $propertyMetadata, $expectedResult]) {
+            self::assertSame($expectedResult, $this->propertySchemaRangeRestriction->create($constraint, $propertyMetadata));
+        }
     }
 
     #[DataProvider('createProviderWithNativeType')]

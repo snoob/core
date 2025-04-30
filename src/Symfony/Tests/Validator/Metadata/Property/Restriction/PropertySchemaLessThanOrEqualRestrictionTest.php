@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace ApiPlatform\Tests\Symfony\Validator\Metadata\Property\Restriction;
+namespace ApiPlatform\Symfony\Tests\Validator\Metadata\Property\Restriction;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Symfony\Validator\Metadata\Property\Restriction\PropertySchemaLessThanOrEqualRestriction;
@@ -40,11 +40,12 @@ final class PropertySchemaLessThanOrEqualRestrictionTest extends TestCase
         $this->propertySchemaLessThanOrEqualRestriction = new PropertySchemaLessThanOrEqualRestriction();
     }
 
-    #[DataProvider('supportsProvider')]
     #[IgnoreDeprecations]
-    public function testSupports(Constraint $constraint, ApiProperty $propertyMetadata, bool $expectedResult): void
+    public function testSupports(): void
     {
-        self::assertSame($expectedResult, $this->propertySchemaLessThanOrEqualRestriction->supports($constraint, $propertyMetadata));
+        foreach ($this->supportsProvider() as [$constraint, $propertyMetadata, $expectedResult]) {
+            self::assertSame($expectedResult, $this->propertySchemaLessThanOrEqualRestriction->supports($constraint, $propertyMetadata));
+        }
     }
 
     #[DataProvider('supportsProviderWithNativeType')]
