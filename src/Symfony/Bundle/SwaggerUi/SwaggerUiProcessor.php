@@ -54,6 +54,7 @@ final class SwaggerUiProcessor implements ProcessorInterface
             'reDocEnabled' => $this->swaggerUiContext->isRedocEnabled(),
             'graphQlEnabled' => $this->swaggerUiContext->isGraphQlEnabled(),
             'graphiQlEnabled' => $this->swaggerUiContext->isGraphiQlEnabled(),
+            'graphQlPlaygroundEnabled' => $this->swaggerUiContext->isGraphQlPlaygroundEnabled(),
             'assetPackage' => $this->swaggerUiContext->getAssetPackage(),
             'originalRoute' => $request->attributes->get('_api_original_route', $request->attributes->get('_route')),
             'originalRouteParams' => $request->attributes->get('_api_original_route_params', $request->attributes->get('_route_params', [])),

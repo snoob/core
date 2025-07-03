@@ -250,6 +250,7 @@ class AppKernel extends Kernel
                 'paths' => ['%kernel.project_dir%/../TestBundle/Resources/config/api_resources'],
             ],
             'graphql' => [
+                'graphql_playground' => false,
                 'max_query_depth' => 200,
             ],
             'use_symfony_listeners' => $useSymfonyListeners,

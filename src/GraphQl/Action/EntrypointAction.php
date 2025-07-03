@@ -41,10 +41,12 @@ final class EntrypointAction
         private readonly SchemaBuilderInterface $schemaBuilder,
         private readonly ExecutorInterface $executor,
         private readonly ?GraphiQlAction $graphiQlAction,
+        private readonly ?GraphQlPlaygroundAction $graphQlPlaygroundAction,
         private readonly NormalizerInterface $normalizer,
         private readonly ErrorHandlerInterface $errorHandler,
         bool $debug = false,
         private readonly bool $graphiqlEnabled = false,
+        private readonly bool $graphQlPlaygroundEnabled = false,
         private readonly ?string $defaultIde = null,
         ?Negotiator $negotiator = null,
     ) {
@@ -61,6 +63,10 @@ final class EntrypointAction
             if ($request->isMethod('GET') && 'html' === $format) {
                 if ('graphiql' === $this->defaultIde && $this->graphiqlEnabled && $this->graphiQlAction) {
                     return ($this->graphiQlAction)($request);
+                }
+
+                if ('graphql-playground' === $this->defaultIde && $this->graphQlPlaygroundEnabled && $this->graphQlPlaygroundAction) {
+                    return ($this->graphQlPlaygroundAction)($request);
                 }
             }
 

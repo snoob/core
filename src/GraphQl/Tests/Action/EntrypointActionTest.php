@@ -15,6 +15,7 @@ namespace ApiPlatform\GraphQl\Tests\Action;
 
 use ApiPlatform\GraphQl\Action\EntrypointAction;
 use ApiPlatform\GraphQl\Action\GraphiQlAction;
+use ApiPlatform\GraphQl\Action\GraphQlPlaygroundAction;
 use ApiPlatform\GraphQl\Error\ErrorHandler;
 use ApiPlatform\GraphQl\ExecutorInterface;
 use ApiPlatform\GraphQl\Serializer\Exception\ErrorNormalizer;
@@ -269,7 +270,8 @@ class EntrypointActionTest extends TestCase
         $routerProphecy->generate('api_graphql_entrypoint')->willReturn('/graphiql');
 
         $graphiQlAction = new GraphiQlAction($twigProphecy->reveal(), $routerProphecy->reveal(), true);
+        $graphQlPlaygroundAction = new GraphQlPlaygroundAction($twigProphecy->reveal(), $routerProphecy->reveal(), true);
 
-        return new EntrypointAction($schemaBuilderProphecy->reveal(), $executorProphecy->reveal(), $graphiQlAction, $normalizer, $errorHandler, false, true, 'graphiql');
+        return new EntrypointAction($schemaBuilderProphecy->reveal(), $executorProphecy->reveal(), $graphiQlAction, $graphQlPlaygroundAction, $normalizer, $errorHandler, false, true, true, 'graphiql');
     }
 }
